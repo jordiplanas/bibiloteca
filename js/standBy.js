@@ -2,11 +2,10 @@ class StandBy {
     constructor() {
         this.bk = createGraphics(width, height);
         this.brush = new Brush(this.bk);
-        this.button = new Button(width / 2, height / 2, 100, 100, 1);
+        this.button = new Button(width / 2, height / 2, 100, 100, 1, undefined);
         this.state = 0;
     }
     display(cP) {
-        console.log(this.state)
         switch (this.state) {
             case 0:
                 text("HOLA!", 100, 100);
