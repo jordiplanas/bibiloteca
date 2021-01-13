@@ -4,21 +4,36 @@ class StandBy {
         this.brush = new Brush(this.bk);
         this.button = new Button(width / 2, height / 2, 100, 100, 1, undefined);
         this.state = 0;
+        this.timer = new Timer(5000);
+        this.timer.start();
     }
     display(cP) {
+        console.log("standby: " + this.state);
         switch (this.state) {
             case 0:
                 text("HOLA!", 100, 100);
-                if (mouseIsPressed) this.state = 1;
+                if (this.timer.isFinished()) {
+                    this.timer.totalTime = 5000;
+                    this.timer.start();
+                    this.state = 1;
+                }
                 break;
             case 1:
-                this.drawing(cP)
-                if (frameCount % 600 == 0) {
-                    this.bk.clear();
+                text("anecdota", 100, 100);
+                if (this.timer.isFinished()) {
+                    this.timer.totalTime = 5000;
+                    this.timer.start();
                     this.state = 2;
                 }
                 break;
             case 2:
+                this.drawing(cP)
+                if (this.timer.isFinished()) {
+                    this.bk.clear();
+                    this.state = 3;
+                }
+                break;
+            case 3:
                 this.buttonScreen();
                 break;
         }
@@ -38,7 +53,6 @@ class StandBy {
         this.button.activated(cursorPosition.x, cursorPosition.y)
     }
 }
-
 
 class Brush {
     constructor(bk) {

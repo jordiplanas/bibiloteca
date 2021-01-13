@@ -14,9 +14,11 @@ class Menu {
     }
 
     display() {
+        cursorsIsActive = true;
         for (var i = 0; i < this.buttons.length; i++) {
             this.buttons[i].display();
             this.buttons[i].activated(cursorPosition.x, cursorPosition.y);
+
         }
     }
 
