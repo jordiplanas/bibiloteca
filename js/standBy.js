@@ -1,37 +1,40 @@
 class StandBy {
     constructor() {
-        this.bk = createGraphics(width, height);
         this.brush = new Brush(this.bk);
-        this.button = new Button(width / 2, height / 2, 100, 100, 1, undefined);
+        this.button = new Button(width / 2 - 180, height / 2 + 90, 355, 77, 1, undefined);
         this.state = 0;
         this.timer = new Timer(5000);
         this.timer.start();
+        this.ind = 0;
+        this.cursor = new Cursor();
     }
+
     display(cP) {
-        console.log("standby: " + this.state);
+
         switch (this.state) {
             case 0:
-                text("HOLA!", 100, 100);
-                if (this.timer.isFinished()) {
-                    this.timer.totalTime = 5000;
+                if (frameCount % 100 == 0 && this.ind < 4) {
+                    this.ind++;
+                } else if (this.ind == 4) {
                     this.timer.start();
                     this.state = 1;
                 }
+                image(sbImages[this.ind], 0, 0, width, height)
                 break;
             case 1:
-                text("anecdota", 100, 100);
+                if (cP.x + cP.y > 0 && tracking == true) {
+                    this.drawing(cP)
+                }
                 if (this.timer.isFinished()) {
-                    this.timer.totalTime = 5000;
-                    this.timer.start();
                     this.state = 2;
                 }
                 break;
             case 2:
-                this.drawing(cP)
-                if (this.timer.isFinished()) {
-                    this.bk.clear();
-                    this.state = 3;
-                }
+                image(sbImages[5], 0, 0, width, height)
+                this.button.activated(cP.x, cP.y)
+                cursorsIsActive = true;
+                if (this.button.reading) this.button.display();
+                //needs to go back to standby if no user
                 break;
             case 3:
                 this.buttonScreen();
@@ -40,7 +43,6 @@ class StandBy {
 
     }
     drawing(cP) {
-        image(this.bk, 0, 0);
         this.brush.display(cP.x, cP.y);
         this.brush.op = 255;
         if (frameCount % 7 == 0) {
@@ -52,6 +54,7 @@ class StandBy {
         this.button.display();
         this.button.activated(cursorPosition.x, cursorPosition.y)
     }
+
 }
 
 class Brush {
@@ -74,24 +77,23 @@ class Brush {
         this.py = this.y;
     }
     drizzle() {
+        push();
         let s = 1 + 30 / dist(this.px, this.py, this.x, this.y);
         s = min(15, s);
-        push();
-        this.bk.strokeWeight(s);
-        this.bk.stroke(240);
-        this.bk.line(this.px, this.py, this.x, this.y);
-        pop();
-
+        strokeWeight(s);
+        stroke(240);
+        line(this.px, this.py, this.x, this.y);
+        pop()
     }
     stipple() {
         push();
-        this.bk.noStroke();
-        this.bk.fill(random(100, 255));
+        noStroke();
+        fill(random(100, 255));
         let radius = random(3, 12);
-        this.bk.ellipse(this.px + random(-30, 30), this.py + random(30, -30), radius);
-        this.bk.radius = random(3, 12);
         ellipse(this.px + random(-30, 30), this.py + random(30, -30), radius);
-        pop();
+        radius = random(3, 12);
+        ellipse(this.px + random(-30, 30), this.py + random(30, -30), radius);
+        pop()
     }
     reset() {
 
