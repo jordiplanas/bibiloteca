@@ -54,7 +54,6 @@ class StandBy {
         this.button.display();
         this.button.activated(cursorPosition.x, cursorPosition.y)
     }
-
 }
 
 class Brush {

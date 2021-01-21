@@ -8,7 +8,7 @@ class Button {
         this.buttonState; // the current reading from the input pin
         this.lastButtonState = false; // the previous reading from the input pin
         this.lastDebounceTime = 0; // the last time the output pin was toggled
-        this.debounceDelay = 3000;
+        this.debounceDelay = 1000;
 
     }
     display() {

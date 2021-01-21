@@ -1,24 +1,12 @@
 class Menu {
     constructor() {
         this.b0 = new MenuButton(500, 500, 0);
-        /* this.buttons = [];
-         this.set();*/
-    }
-    set() {
-        /* var ind = 0;
-         for (var x = 0; x < 5; x++) {
-             for (var y = 0; y < 2; y++) {
-                 this.buttons[ind] = new Button(x + 100 * width / 5, y + 100 * height / 2, 100, 100, 2, ind);
-                 ind++;
-             }
-         }*/
     }
 
-    display(cP) {
+    display() {
         cursorsIsActive = true;
         background('#1899aa');
-        this.b0.display(cP)
-
+        this.b0.display(cursorPosition)
     }
 
 }
@@ -50,9 +38,7 @@ class MenuButton {
     isActivated() {
 
         if (this.cP.x > this.x && this.cP.x < this.x + this.sz.x && this.cP.y > this.y && this.cP.y < this.y + this.sz.y) {
-
             this.subBut.display(this.cP, this.x, this.y + this.sz.y / 1.3, this.sz.x, this.sz.y / 5)
-
             if (this.grow < 10) {
                 this.grow++;
                 this.sz.add(this.grow, this.grow);
@@ -100,8 +86,6 @@ class subButton {
             if (this.t > 70) {
                 clear();
                 screen = 2;
-                currentVideo.play();
-
                 this.t = 0;
             }
         } else {

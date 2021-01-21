@@ -1,6 +1,5 @@
-let screen = 0;
-let standBy;
-let menu;
+let screen = 2;
+let standBy, menu, txt;
 let cursor;
 let cursorPosition;
 let cursorsIsActive = false;
@@ -14,20 +13,24 @@ function preload() {
     for (var i = 0; i <= 6; i++) {
         sbImages[i] = loadImage("assets/b" + i + ".png")
     }
-    currentVideo = createVideo("assets/0.mov");
+    currentVideo = createVideo("assets/0.mov", onVideoLoad); //42.28
+}
 
+function onVideoLoad() {
+    var vid = document.getElementsByTagName('video');
+    vid.muted = true;
+    currentVideo.hide();
+    currentVideo.play();
 }
 
 function setup() {
-
     createCanvas(1920, 1080);
     cursor = new Cursor();
     cursorPosition = createVector(0, 0);
     standBy = new StandBy();
     menu = new Menu();
+    txt = new Txt();
     activityTimmer = new Timer(3000);
-
-
 
 }
 
@@ -38,11 +41,10 @@ function draw() {
             standBy.display(cursorPosition);
             break;
         case 1:
-            menu.display(cursorPosition);
+            menu.display();
             break;
         case 2:
-
-
+            txt.display();
             break;
     }
 
@@ -55,8 +57,11 @@ var controller = Leap.loop(function(frame) {
         tracking = true;
         let hand = frame.hands[0];
         let position = createVector(hand.palmPosition[0] + width / 2, height - hand.palmPosition[1]);
-        cursorPosition.x = map(position.x, 600, 1200, 0, width);
-        cursorPosition.y = map(position.y, 400, 1000, 0, height);
+        console.log(position)
+            //cursorPosition.x = position.x;
+            //cursorPosition.y = position.y;
+        cursorPosition.x = map(position.x, 700, 900, 0, width);
+        cursorPosition.y = map(position.y, 500, 900, 0, height);
         // activityTimmer.start();
 
     } else {
@@ -68,7 +73,3 @@ var controller = Leap.loop(function(frame) {
         }*/
     }
 });
-
-function mousePressed() {
-    currentVideo.play();
-}
