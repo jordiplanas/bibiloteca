@@ -1,4 +1,4 @@
-let screen = 2;
+let screen = 0;
 let standBy, menu, txt;
 let cursor;
 let cursorPosition;
@@ -14,13 +14,14 @@ function preload() {
         sbImages[i] = loadImage("assets/b" + i + ".png")
     }
     currentVideo = createVideo("assets/0.mov", onVideoLoad); //42.28
+
 }
 
 function onVideoLoad() {
     var vid = document.getElementsByTagName('video');
     vid.muted = true;
     currentVideo.hide();
-    currentVideo.play();
+
 }
 
 function setup() {
@@ -38,6 +39,7 @@ function draw() {
 
     switch (screen) {
         case 0:
+
             standBy.display(cursorPosition);
             break;
         case 1:
@@ -56,12 +58,8 @@ var controller = Leap.loop(function(frame) {
     if (frame.hands.length > 0) {
         tracking = true;
         let hand = frame.hands[0];
-        let position = createVector(hand.palmPosition[0] + width / 2, height - hand.palmPosition[1]);
-        console.log(position)
-            //cursorPosition.x = position.x;
-            //cursorPosition.y = position.y;
-        cursorPosition.x = map(position.x, 700, 900, 0, width);
-        cursorPosition.y = map(position.y, 500, 900, 0, height);
+        cursorPosition.x = map(hand.palmPosition[0], -170, 170, 0, width);
+        cursorPosition.y = map(hand.palmPosition[1], 135, 380, height, 0);
         // activityTimmer.start();
 
     } else {

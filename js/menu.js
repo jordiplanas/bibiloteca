@@ -1,6 +1,6 @@
 class Menu {
     constructor() {
-        this.b0 = new MenuButton(500, 500, 0);
+        this.b0 = new MenuButton(50, 50, 0);
     }
 
     display() {
@@ -19,7 +19,7 @@ class MenuButton {
         this.img = target;
         this.target = target;
         this.cP = createVector(0, 0);
-        this.sz = createVector(100, 100);
+        this.sz = createVector(150, 200);
         this.grow = 0;
         this.subBut = new subButton(this.target);
     }
@@ -30,7 +30,7 @@ class MenuButton {
         noFill()
         stroke(255)
         strokeWeight(3)
-        rect(this.x, this.y, this.sz.x, this.sz.y)
+        rect(this.x, this.y, this.sz.x, this.sz.y, 8)
         pop();
         this.isActivated();
     }
@@ -85,6 +85,7 @@ class subButton {
             this.t++;
             if (this.t > 70) {
                 clear();
+                currentVideo.play();
                 screen = 2;
                 this.t = 0;
             }

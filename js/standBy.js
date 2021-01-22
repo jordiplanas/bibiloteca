@@ -13,6 +13,7 @@ class StandBy {
 
         switch (this.state) {
             case 0:
+                cursorsIsActive = false;
                 if (frameCount % 100 == 0 && this.ind < 4) {
                     this.ind++;
                 } else if (this.ind == 4) {
