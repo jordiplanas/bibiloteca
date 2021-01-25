@@ -1,10 +1,13 @@
-let screen = 0;
+let screen = 1;
 let standBy, menu, txt;
 let cursor;
 let cursorPosition;
 let cursorsIsActive = false;
 let activityTimmer;
 var sbImages = [];
+var fons;
+var butImg;
+var subImg;
 var tracking = false;
 var currentVideo;
 
@@ -14,6 +17,9 @@ function preload() {
         sbImages[i] = loadImage("assets/b" + i + ".png")
     }
     currentVideo = createVideo("assets/0.mov", onVideoLoad); //42.28
+    fons = loadImage('assets/fons.jpg')
+    butImg = loadImage('assets/s0.png')
+    subImg = loadImage('assets/sub.png')
 
 }
 
@@ -29,7 +35,7 @@ function setup() {
     cursor = new Cursor();
     cursorPosition = createVector(0, 0);
     standBy = new StandBy();
-    menu = new Menu();
+    menu = new Menu(fons, butImg, subImg);
     txt = new Txt();
     activityTimmer = new Timer(3000);
 

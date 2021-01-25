@@ -1,11 +1,14 @@
 class Menu {
-    constructor() {
-        this.b0 = new MenuButton(50, 50, 0);
+    constructor(bk, img, sub) {
+        this.buttonImg = img;
+        this.subImg = sub;
+        this.b0 = new MenuButton(50, 50, 0, this.buttonImg, this.subImg);
+        this.bkImg = bk;
     }
 
     display() {
         cursorsIsActive = true;
-        background('#1899aa');
+        image(this.bkImg, 0, 0, width, height)
         this.b0.display(cursorPosition)
     }
 
@@ -13,40 +16,38 @@ class Menu {
 
 class MenuButton {
 
-    constructor(x, y, target) {
+    constructor(x, y, target, img, subImg) {
         this.x = x;
         this.y = y;
-        this.img = target;
+        this.img = img;
         this.target = target;
         this.cP = createVector(0, 0);
-        this.sz = createVector(150, 200);
+        this.maxSz = createVector(this.img.width, this.img.height);
+        this.sz = createVector(160, this.img.height);
         this.grow = 0;
-        this.subBut = new subButton(this.target);
+        this.subBut = new subButton(subImg, this.target);
     }
 
     display(cP) {
         this.cP = cP;
-        push()
-        noFill()
-        stroke(255)
-        strokeWeight(3)
-        rect(this.x, this.y, this.sz.x, this.sz.y, 8)
-        pop();
+
+        image(this.img, 50, 50, this.sz.x, this.sz.y)
+
         this.isActivated();
     }
 
     isActivated() {
 
         if (this.cP.x > this.x && this.cP.x < this.x + this.sz.x && this.cP.y > this.y && this.cP.y < this.y + this.sz.y) {
-            this.subBut.display(this.cP, this.x, this.y + this.sz.y / 1.3, this.sz.x, this.sz.y / 5)
-            if (this.grow < 10) {
-                this.grow++;
-                this.sz.add(this.grow, this.grow);
+            this.subBut.display(this.cP, this.x, this.y + this.sz.y / 1.4, this.sz.x, this.sz.y / 8)
+            if (this.sz.x < 227) {
+                this.sz.x += 5;
+                this.sz.y += 2;
             }
         } else {
-            if (this.grow > 0) {
-                this.grow--;
-                this.sz.sub(this.grow, this.grow);
+            if (this.sz.x > 160) {
+                this.sz.x -= 5;
+                this.sz.y -= 2;
             }
 
         }
@@ -56,7 +57,8 @@ class MenuButton {
 }
 
 class subButton {
-    constructor(target) {
+    constructor(img, target) {
+        this.img = img;
         this.pos = createVector(0, 0);
         this.sz = createVector(0, 0);
         this.target = target;
@@ -70,12 +72,13 @@ class subButton {
         this.pos.y = y;
         this.sz.x = szx;
         this.sz.y = szy;
-        fill(200);
-        noStroke();
-        rect(this.pos.x + 10, this.pos.y - 3, this.sz.x - 20, this.sz.y, 12);
-        fill(0);
-        textSize(24)
-        text(this.target, this.pos.x + this.sz.x / 2, this.pos.y + this.sz.y / 1.6);
+        image(this.img, this.pos.x + 10, this.pos.y - 13, this.sz.x - 20, this.sz.y)
+            /* fill(200);
+             noStroke();
+             rect(this.pos.x + 10, this.pos.y - 3, this.sz.x - 20, this.sz.y, 12);
+             fill(0);
+             textSize(24)
+             text(this.target, this.pos.x + this.sz.x / 2, this.pos.y + this.sz.y / 1.6);*/
         this.isActivated();
     }
 
