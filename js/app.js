@@ -1,4 +1,4 @@
-let screen = 1;
+let screen = 0;
 let standBy, menu, txt;
 let cursor;
 let cursorPosition;
@@ -10,13 +10,17 @@ var butImg;
 var subImg;
 var tracking = false;
 var currentVideo;
+var vids = [];
 
 function preload() {
     console.log("preload");
     for (var i = 0; i <= 6; i++) {
         sbImages[i] = loadImage("assets/b" + i + ".png")
     }
-    currentVideo = createVideo("assets/0.mov", onVideoLoad); //42.28
+    vids[0] = createVideo("assets/0a.mp4");
+    vids[1] = createVideo("assets/0b.mp4");
+    vids[2] = createVideo("assets/0c.mp4", onVideoLoad);
+
     fons = loadImage('assets/fons.jpg')
     butImg = loadImage('assets/s0.png')
     subImg = loadImage('assets/sub.png')
@@ -24,9 +28,10 @@ function preload() {
 }
 
 function onVideoLoad() {
-    var vid = document.getElementsByTagName('video');
-    vid.muted = true;
-    currentVideo.hide();
+    currentVideo = vids[0];
+    for (var i = 0; i < vids.length; i++) {
+        vids[i].hide();
+    }
 
 }
 
