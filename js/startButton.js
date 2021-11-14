@@ -1,28 +1,28 @@
-class Button {
-    constructor(x, y, w, h, next, txt) {
+class StartButton {
+    constructor(x, y, next, img = undefined, hoverImg = undefined) {
         this.pos = createVector(x, y);
-        this.sz = createVector(w, h);
         this.next = next;
         this.txt = txt;
+        this.img = img;
+        this.hoverImg = hoverImg;
         this.reading;
         this.buttonState; // the current reading from the input pin
         this.lastButtonState = false; // the previous reading from the input pin
         this.lastDebounceTime = 0; // the last time the output pin was toggled
         this.debounceDelay = 1000;
-
     }
     display() {
-        noFill();
-        rect(this.pos.x, this.pos.y, this.sz.x, this.sz.y);
-        if (this.text != undefined) {
-            fill(0);
-            text(this.txt, this.pos.x, this.pos.y);
-        }
+        image(this.img, this.pos.x, this.pos.y);
     }
+
+    hover() {
+        image(this.hoverImg, this.pos.x, this.pos.y);
+    }
+
     activated(mX, mY) {
-        if (mX > this.pos.x && mX < this.pos.x + this.sz.x && mY > this.pos.y && mY < this.pos.y + this.sz.y) {
-            console.log(this.txt)
-            this.reading = true;
+        if (mX > this.pos.x && mX < this.pos.x + this.img.width && mY > this.pos.y && mY < this.pos.y +  this.img.height) {
+            console.log("hover")
+            this.reading = true; //hover
         } else {
             this.reading = false;
         }
@@ -38,6 +38,7 @@ class Button {
                 this.buttonState = this.reading;
                 // only change screen if is inside de button
                 if (this.buttonState == true) {
+                    // click
                     screen = this.next;
                 }
             }

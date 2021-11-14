@@ -1,36 +1,57 @@
-let screen = 0;
-let standBy, menu, txt;
-let cursor;
-let cursorPosition;
-let cursorsIsActive = false;
-let activityTimmer;
+var screen = 1;
+var standBy, menu, txt;
+var cursor;
+var cursorPosition;
+var cursorsIsActive = false;
+var activityTimmer;
 var sbImages = [];
-var fons;
-var butImg;
-var subImg;
+var bk;
+var enterButton, enterButtonHover;
+var subImg, subHover;
 var tracking = false;
-var currentVideo;
+var currentVideo=0;
 var vids = [];
-
+var video;
+var allVideos = 0;
+var videosLoaded = false;
+var noUser = true;
+var colorTheme = '#0000FF';
+var menuButtons = [];
+var seguent,anterior,inici,context;
+var pops=[];
 function preload() {
     console.log("preload");
     for (var i = 0; i <= 6; i++) {
         sbImages[i] = loadImage("assets/b" + i + ".png")
     }
-    vids[0] = createVideo("assets/0a.mp4");
-    vids[1] = createVideo("assets/0b.mp4");
-    vids[2] = createVideo("assets/0c.mp4", onVideoLoad);
+    for (var i = 0; i <10; i++) {
+       menuButtons[i] = loadImage("assets/menuButtons_" + i + ".png")
+       pops[i] = loadImage("assets/pop_" + i + ".png")
+        vids[i] = createVideo("assets/vid_"+i+".mp4",onVideoLoad);
+    }
+ 
 
-    fons = loadImage('assets/fons.jpg')
-    butImg = loadImage('assets/s0.png')
-    subImg = loadImage('assets/sub.png')
+    bk= loadImage('assets/bk.jpg');
+    enterButton = loadImage("assets/enter.png");
+    enterButtonHover= loadImage("assets/enterHover.png");
+     seguent= loadImage('assets/seguent.jpg');
+    anterior= loadImage('assets/anterior.jpg');
+     context= loadImage('assets/context.jpg');
+     inici= loadImage('assets/inici.jpg');
+
 
 }
 
 function onVideoLoad() {
-    currentVideo = vids[0];
-    for (var i = 0; i < vids.length; i++) {
-        vids[i].hide();
+    allVideos += 1;
+    vids[allVideos - 1].hide();
+    console.log("allVideos", allVideos);
+    if(allVideos === 10) {
+        currentVideo = 0;
+        for (var i = 0; i < vids.length; i++) {
+            //vids[i].hide();
+        }
+        videosLoaded = true;
     }
 
 }
@@ -40,24 +61,23 @@ function setup() {
     cursor = new Cursor();
     cursorPosition = createVector(0, 0);
     standBy = new StandBy();
-    menu = new Menu(fons, butImg, subImg);
-    txt = new Txt();
+    menu = new Menu(bk, menuButtons, enterButton , enterButtonHover);
+
+    videoText = new videoText(seguent,anterior,inici,context);
     activityTimmer = new Timer(3000);
 
 }
 
 function draw() {
-
     switch (screen) {
         case 0:
-
             standBy.display(cursorPosition);
             break;
         case 1:
             menu.display();
             break;
         case 2:
-            txt.display();
+            videoText.display();
             break;
     }
 
@@ -68,17 +88,20 @@ function draw() {
 var controller = Leap.loop(function(frame) {
     if (frame.hands.length > 0) {
         tracking = true;
+        noUser = false;
         let hand = frame.hands[0];
         cursorPosition.x = map(hand.palmPosition[0], -170, 170, 0, width);
-        cursorPosition.y = map(hand.palmPosition[1], 135, 380, height, 0);
-        // activityTimmer.start();
-
+        cursorPosition.y = map(hand.palmPosition[2], -150, 150, 0, height); // canivar a eix Z
+        console.log("trackin");
     } else {
-
+        if (tracking) activityTimmer.start();
         tracking = false;
-        /*if (activityTimmer.isFinished() && screen != 0) {
-            console.log("back to standby")
-                // screen = 0;
-        }*/
+        if (activityTimmer && activityTimmer.isFinished()) {
+            noUser = true;
+            if (screen != 0) {
+                console.log("back to standby");
+                //screen = 0;
+            }
+        }
     }
 });

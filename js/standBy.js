@@ -1,7 +1,7 @@
 class StandBy {
     constructor() {
         this.brush = new Brush(this.bk);
-        this.button = new Button(width / 2 - 180, height / 2 + 90, 355, 77, 1, undefined);
+        this.button = new StartButton(width / 2 - 180, height / 2 + 90, 1, enterButton ,enterButtonHover );
         this.state = 0;
         this.timer = new Timer(5000);
         this.timer.start();
@@ -10,7 +10,7 @@ class StandBy {
     }
 
     display(cP) {
-
+        console.log(this.state);
         switch (this.state) {
             case 0:
                 cursorsIsActive = false;
@@ -34,8 +34,13 @@ class StandBy {
                 image(sbImages[5], 0, 0, width, height)
                 this.button.activated(cP.x, cP.y)
                 cursorsIsActive = true;
-                if (this.button.reading) this.button.display();
+                if (this.button.reading) this.button.hover();
                 //needs to go back to standby if no user
+                console.log("nouser "+ noUser);
+                if (noUser) {
+                    this.ind = 0;
+                    this.state = 0;
+                }
                 break;
             case 3:
                 this.buttonScreen();
