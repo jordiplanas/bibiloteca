@@ -140,8 +140,10 @@ class subButton {
             this.t++;
             if (this.t > 70) {
                 currentVideo = this.target;
-                //videoText.stage=0;
+                videoText.stage=0;
                 video = vids[currentVideo];
+                video.time(0);
+                video.loop();
                 screen = 2;
                 this.t = 0;
             }

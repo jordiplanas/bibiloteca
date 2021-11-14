@@ -1,0 +1,22 @@
+{
+  "name": "biblioteca",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordiplanas/bibiloteca.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordiplanas/bibiloteca/issues"
+  },
+  "homepage": "https://github.com/jordiplanas/bibiloteca#readme",
+  "devDependencies": {
+    "electron": "^15.3.1"
+  }
+}

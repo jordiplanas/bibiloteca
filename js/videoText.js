@@ -19,7 +19,7 @@ class videoText {
         this.contextButton.isInside();
         this.backButton.display();
         if (this.backButton.isInside()) {
-                video.stop();
+                video.pause();
                 this.stage = 0,
                 screen = 1;
             }
@@ -33,12 +33,13 @@ class videoText {
         // console.log(this.stage, video.time());
         switch (this.stage) {
             case 0:
+           
                 if(video.time()>=16){
                      video.pause();
                      this.videoPaused=true;
                 } else {
                     if(this.videoPaused) {
-                        video.play();
+                        video.loop();
                         this.videoPaused = false;
                     }
                 }
@@ -58,7 +59,7 @@ class videoText {
                      this.videoPaused=true;
                 } else {
                     if(this.videoPaused) {
-                        video.play();
+                        video.loop();
                         this.videoPaused = false;
                     }
                 }
@@ -82,7 +83,7 @@ class videoText {
                      this.videoPaused=true;
                 } else {
                     if(this.videoPaused) {
-                        video.play();
+                        video.loop();
                         this.videoPaused = false;
                     }
                 }
