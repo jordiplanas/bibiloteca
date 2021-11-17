@@ -70,6 +70,7 @@ class MenuButton {
         this.x = x;
         this.y = y;
         this.img = img;
+        this.target = target;
         this.cP = createVector(0, 0);
         this.button = button;
         this.maxSz = createVector(this.img.width, this.img.height);
@@ -81,9 +82,7 @@ class MenuButton {
 
     display(cP) {
         this.cP = cP;
-
         image(this.img, this.x, this.y,this.sz.x,this.sz.y)
-
         this.isActivated();
     }
 
@@ -93,6 +92,10 @@ class MenuButton {
             if (this.sz.x <= this.maxSz.x) {
                 this.sz.x += 6;
                 this.sz.y += 6;
+                if(this.target%2==1){
+                    console.log("movi")
+                    this.y -= 6;
+                }
             }
             if (this.sz.x >= this.maxSz.x) {
                 this.subBut.display(this.cP, this.x, this.y + this.img.height + 20)
@@ -101,6 +104,9 @@ class MenuButton {
             if (this.sz.x > this.minSz.x) {
                 this.sz.x -= 6;
                 this.sz.y -= 6;
+                 if(this.target %2 ==1){
+                    this.y+=6;
+                }
             }
 
         }

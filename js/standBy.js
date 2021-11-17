@@ -3,42 +3,36 @@ class StandBy {
         this.brush = new Brush(this.bk);
         this.button = new StartButton(width / 2 - 180, height / 2 + 90, 1, enterButton ,enterButtonHover );
         this.state = 0;
-        this.timer = new Timer(5000);
-        this.timer.start();
-        this.ind = 0;
         this.cursor = new Cursor();
     }
 
     display(cP) {
         console.log(this.state);
+        image(videoIntro,0,0)
         switch (this.state) {
             case 0:
-                cursorsIsActive = false;
-                if (frameCount % 100 == 0 && this.ind < 4) {
-                    this.ind++;
-                } else if (this.ind == 4) {
-                    this.timer.start();
+                if(videoIntro.time()>=25){
                     this.state = 1;
                 }
-                image(sbImages[this.ind], 0, 0, width, height)
                 break;
             case 1:
                 if (cP.x + cP.y > 0 && tracking == true) {
                     this.drawing(cP)
                 }
-                if (this.timer.isFinished()) {
+                 if(videoIntro.time()>=45){
                     this.state = 2;
                 }
                 break;
             case 2:
-                image(sbImages[5], 0, 0, width, height)
                 this.button.activated(cP.x, cP.y)
-                cursorsIsActive = true;
+                this.button.display();
+       
                 if (this.button.reading) this.button.hover();
                 //needs to go back to standby if no user
                 console.log("nouser "+ noUser);
                 if (noUser) {
-                    this.ind = 0;
+                    //this.ind = 0;
+                    videoIntro.time(0)
                     this.state = 0;
                 }
                 break;
@@ -55,15 +49,11 @@ class StandBy {
             this.brush.stipple();
         }
     }
-    buttonScreen() {
-        cursorsIsActive = true;
-        this.button.display();
-        this.button.activated(cursorPosition.x, cursorPosition.y)
-    }
 }
 
 class Brush {
     constructor(bk) {
+   
         this.x = 0;
         this.y = 0;
         this.px = 0;
@@ -80,12 +70,14 @@ class Brush {
         }
         this.px = this.x;
         this.py = this.y;
+        console.log("drawing");
     }
     drizzle() {
+
         push();
         let s = 1 + 30 / dist(this.px, this.py, this.x, this.y);
         s = min(15, s);
-        strokeWeight(s);
+       strokeWeight(s);
         stroke(240);
         line(this.px, this.py, this.x, this.y);
         pop()
@@ -93,11 +85,11 @@ class Brush {
     stipple() {
         push();
         noStroke();
-        fill(random(100, 255));
+      fill(random(100, 255));
         let radius = random(3, 12);
-        ellipse(this.px + random(-30, 30), this.py + random(30, -30), radius);
+ellipse(this.px + random(-30, 30), this.py + random(30, -30), radius);
         radius = random(3, 12);
-        ellipse(this.px + random(-30, 30), this.py + random(30, -30), radius);
+       ellipse(this.px + random(-30, 30), this.py + random(30, -30), radius);
         pop()
     }
     reset() {

@@ -12,8 +12,6 @@ class videoText {
     }
     display() {
         cursor.col = 0;
-
-
         image(video, 0, 0);
         this.contextButton.display();
         this.contextButton.isInside();
@@ -33,7 +31,7 @@ class videoText {
         // console.log(this.stage, video.time());
         switch (this.stage) {
             case 0:
-           
+
                 if(video.time()>=16){
                      video.pause();
                      this.videoPaused=true;

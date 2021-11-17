@@ -1,8 +1,8 @@
 class Cursor {
     constructor() {
-        this.sz = 10;
+        this.sz = 55;
         this.pos = createVector(0, 0);
-        this.col = 255;
+        this.col = "#dca26f";
     }
     display(pos) {
         push()
