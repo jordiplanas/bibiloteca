@@ -11,7 +11,7 @@ class videoText {
         this.videoPaused = true;
     }
     display() {
-        cursor.col = 0;
+       //image(vids[1],0,0)
         image(video, 0, 0);
         this.contextButton.display();
         this.contextButton.isInside();
@@ -22,7 +22,11 @@ class videoText {
                 screen = 1;
             }
         if(this.contextButton.isInside()){
-            video.pause();
+            //video.pause();
+         
+            fill(115, 165, 207,30);
+            rect(0,0,width,height)
+
             this.videoPaused=true;
             image(pops[currentVideo],0,0);
         } else {
@@ -30,6 +34,51 @@ class videoText {
         var complete = video.time() / video.duration();
         // console.log(this.stage, video.time());
         switch (this.stage) {
+            case 0:
+            video = vids[1];
+            if(complete > .99){
+                video.pause();
+            }
+            this.nextButton.display();
+            if (this.nextButton.isInside()) {
+                video = vids[2];
+                video.loop();
+                this.stage = 1;
+            }
+            break;
+             case 1:
+                if(complete > .99){
+                    video.pause();
+                }
+
+                this.nextButton.display();
+                this.prevButton.display();
+                if (this.nextButton.isInside()) {
+                    video = vids[3];
+                    video.loop();
+                    this.stage = 2;
+                }
+                if (this.prevButton.isInside()) {
+                    video = vids[1];
+                    video.loop();
+                    this.stage = 0;
+                }
+
+                break;
+                 case 2:
+                  if(complete > .99){
+                    video.pause();
+                }
+                this.prevButton.display();
+                if (this.prevButton.isInside()) {
+                    video = vids[2];
+                    video.loop();
+                    this.stage = 1;
+                }
+                break;
+
+        }
+       /* switch (this.stage) {
             case 0:
 
                 if(video.time()>=15){
@@ -92,7 +141,7 @@ class videoText {
                     this.stage = 1;
                 }
                 break;
-            }
+            }*/
         }
     }
 }
@@ -117,6 +166,7 @@ class vidButton {
        image(this.img,this.pos.x,this.pos.y)
        if(this.reading){
         fill(colorTheme)
+        noStroke();
         rect(this.pos.x,this.pos.y, this.sz.x, this.sz.y)
         image(this.img,this.pos.x-10,this.pos.y-10)
         }

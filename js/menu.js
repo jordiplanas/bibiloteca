@@ -144,10 +144,46 @@ class subButton {
             console.log("insideSub")
             this.hover();
             this.t++;
+
             if (this.t > 70) {
-                currentVideo = this.target;
+
+                switch (this.target){
+                    case 0:
+                        vids = vids0.slice();
+                        break;
+                     case 1:
+                        vids = vids1.slice();
+                        break;
+                     case 2:
+                        vids = vids2.slice();
+                        break;
+                    case 3:
+                        vids = vids3.slice();       
+                        break;
+                     case 4:
+                        vids = vids4.slice();
+                        break;
+                     case 5:
+                        vids = vids5.slice();
+                        break;
+                    case 6:
+                        vids = vids6.slice();
+                        break;
+                     case 7:
+                        vids = vids7.slice();
+                        break;
+                     case 8:
+                        vids = vids8.slice();
+                        break;
+                      case 9:
+                        vids = vids9.slice();
+                        break;
+
+                }
+                //currentVideo = this.target;
                 videoText.stage=0;
-                video = vids[currentVideo];
+                video = vids[1];
+                console.log(video)
                 video.time(0);
                 video.loop();
                 screen = 2;
