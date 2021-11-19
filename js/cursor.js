@@ -8,7 +8,7 @@ class Cursor {
         push()
         this.pos = pos;
         stroke(this.col)
-        strokeWeight(4);
+        strokeWeight(6);
         noFill();
         ellipse(this.pos.x, this.pos.y, this.sz)
         pop();

@@ -1,4 +1,4 @@
-var screen = 1;
+var screen = 0;
 var standBy, menu, txt;
 var cursor;
 var cursorPosition;
@@ -15,7 +15,7 @@ var video;
 var allVideos = 0;
 var videosLoaded = false;
 var noUser = true;
-var colorTheme = '#0000FF';
+var colorTheme = '#dca26f';
 var menuButtons = [];
 var seguent,anterior,inici,context;
 var pops=[];
@@ -60,6 +60,7 @@ function onVideoLoad() {
 
 function setup() {
     createCanvas(1920, 1080);
+    //frameRate(25);
     cursor = new Cursor();
     cursorPosition = createVector(0, 0);
     standBy = new StandBy();
@@ -105,7 +106,7 @@ var controller = Leap.loop(function(frame) {
             noUser = true;
             if (screen != 0) {
                 console.log("back to standby");
-                //screen = 0; loop video intro //standby timer start
+                //screen = 0; //loop video intro //standby timer start
             }
         }
     }

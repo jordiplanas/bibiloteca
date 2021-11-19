@@ -32,7 +32,7 @@ class videoText {
         switch (this.stage) {
             case 0:
 
-                if(video.time()>=16){
+                if(video.time()>=15){
                      video.pause();
                      this.videoPaused=true;
                 } else {
@@ -52,7 +52,7 @@ class videoText {
                 break;
             case 1:
                 if(video.time()<16) video.time(16);
-                if(video.time()>=26){
+                if(video.time()>=23){
                      video.pause();
                      this.videoPaused=true;
                 } else {
@@ -65,7 +65,7 @@ class videoText {
                 this.nextButton.display();
                 this.prevButton.display();
                 if (this.nextButton.isInside()) {
-                    video.time(26);
+                    video.time(23);
                     this.stage = 2;
                 }
                 if (this.prevButton.isInside()) {
